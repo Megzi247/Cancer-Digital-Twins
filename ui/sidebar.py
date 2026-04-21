@@ -14,7 +14,7 @@ def _env_key(name: str) -> str:
 
 
 def render_sidebar() -> dict:
-    st.sidebar.title("Cancer Digital Twin")
+    st.sidebar.markdown("# Onco<span style='color: #22c55e;'>Nexus</span> AI", unsafe_allow_html=True)
     st.sidebar.caption("Personalised drug response simulation · 100 synthetic breast cancer patients")
 
     st.sidebar.divider()

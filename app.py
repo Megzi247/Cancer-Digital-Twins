@@ -6,7 +6,7 @@ from pathlib import Path
 load_dotenv()
 
 st.set_page_config(
-    page_title="Cancer Digital Twin",
+    page_title="OncoNexus AI",
     page_icon="🧬",
     layout="wide",
 )
