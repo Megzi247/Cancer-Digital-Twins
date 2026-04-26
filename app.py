@@ -58,6 +58,10 @@ def _render_background():
 def _init_session():
     if "history" not in st.session_state:
         st.session_state.history = []
+    if "cached_patient_id" not in st.session_state:
+        st.session_state.cached_patient_id = None
+    if "cached_features" not in st.session_state:
+        st.session_state.cached_features = None
 
 
 def _save_to_history(mrn, drugs, intent, model_label, result):
@@ -97,13 +101,18 @@ def main():
 
     _render_history()
 
-    # Load patient features
-    try:
-        features = build_patient_features(patient_id, mrn)
-    except Exception as e:
-        st.error("Database connection failed. Check ClickHouse is running on port 9000.")
-        print(f"[DB ERROR] {e}")
-        return
+    # Load patient features — only re-query when the selected patient changes
+    if st.session_state.cached_patient_id != patient_id:
+        try:
+            features = build_patient_features(patient_id, mrn)
+            st.session_state.cached_patient_id = patient_id
+            st.session_state.cached_features = features
+        except Exception as e:
+            st.error("Database connection failed. Check ClickHouse is running on port 9000.")
+            print(f"[DB ERROR] {e}")
+            return
+    else:
+        features = st.session_state.cached_features
 
     if not features.get("has_molecular_data"):
         st.warning("No genomic sample found for this patient. Proceeding with clinical features only.")

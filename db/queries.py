@@ -174,6 +174,31 @@ def get_patient_features(patient_id: str, sample_id: str):
         {"sid": sid},
     )
 
+    carcinogen = client.execute(
+        "SELECT smoking_status, pack_years, alcohol_units_week, prior_chemotherapy FROM carcinogen_exposure WHERE patient_id = %(pid)s LIMIT 1",
+        {"pid": pid},
+    )
+
+    activity = client.execute(
+        "SELECT met_min_week, sedentary_h_day FROM physical_activity WHERE patient_id = %(pid)s ORDER BY assessment_date DESC LIMIT 1",
+        {"pid": pid},
+    )
+
+    stress = client.execute(
+        "SELECT perceived_stress_pss, morning_cortisol FROM stress_psychology WHERE patient_id = %(pid)s ORDER BY assessment_date DESC LIMIT 1",
+        {"pid": pid},
+    )
+
+    circadian = client.execute(
+        "SELECT chronotype, night_shift_worker FROM circadian_profile WHERE patient_id = %(pid)s ORDER BY assessment_date DESC LIMIT 1",
+        {"pid": pid},
+    )
+
+    socioeconomic = client.execute(
+        "SELECT financial_toxicity_score, social_support_score FROM socioeconomic_context WHERE patient_id = %(pid)s ORDER BY assessment_date DESC LIMIT 1",
+        {"pid": pid},
+    )
+
     return {
         "demographics": demographics[0] if demographics else None,
         "staging": staging[0] if staging else None,
@@ -192,4 +217,9 @@ def get_patient_features(patient_id: str, sample_id: str):
         "biopsy": biopsy[0] if biopsy else None,
         "actionable_mutations": [r[0] for r in mutations],
         "resistance": resistance[0] if resistance else None,
+        "carcinogen": carcinogen[0] if carcinogen else None,
+        "activity": activity[0] if activity else None,
+        "stress": stress[0] if stress else None,
+        "circadian": circadian[0] if circadian else None,
+        "socioeconomic": socioeconomic[0] if socioeconomic else None,
     }

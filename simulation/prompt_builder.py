@@ -14,7 +14,7 @@ def build_simulation_prompt(features: dict, drug_data: dict, treatment_intent: s
 
     prompt = f"""You are a precision oncology simulation engine with expertise in breast cancer pharmacology. Given a patient's full molecular and clinical profile and a proposed drug regimen, produce a detailed, clinician-grade prediction across four domains: clinical context, efficacy, toxicity, and resistance.
 
-Be specific. Always cite the patient's actual biomarker values in your reasoning (e.g. "ER H-score of 232 indicates strong endocrine sensitivity"). Avoid generic statements. Every claim must trace back to a field in the patient profile below.
+Be specific. Always cite the patient's actual biomarker values in your reasoning (e.g. "ER H-score of 232 indicates strong endocrine sensitivity"). Avoid generic statements. Every claim must trace back to a field in the patient profile below. You must consider every section of the profile — molecular, immune, organ function, pharmacogenomics, and lifestyle/environment — not just the molecular data. Where lifestyle or environment factors are clinically relevant to the proposed regimen, they must be reflected in your reasoning and top_risks.
 
 ## Patient Profile
 
@@ -78,6 +78,20 @@ Estradiol: {features['estradiol']} pmol/L
 ctDNA fraction: {features['ctdna_fraction']}
 MRD status: {features['mrd_status']}
 MDR1 expression: {features['mdr1_expression']}
+
+### Lifestyle & Environment
+Smoking status: {features['smoking_status']}
+Pack years: {features['pack_years']}
+Alcohol: {features['alcohol_units_week']} units/week
+Prior chemotherapy: {features['prior_chemotherapy']}
+Physical activity: {features['met_min_week']} MET-min/week
+Sedentary time: {features['sedentary_h_day']} h/day
+Perceived stress (PSS): {features['perceived_stress_pss']}
+Morning cortisol: {features['morning_cortisol']}
+Chronotype: {features['chronotype']}
+Night shift worker: {features['night_shift_worker']}
+Financial toxicity score: {features['financial_toxicity_score']}
+Social support score: {features['social_support_score']}
 
 ## Proposed Regimen
 

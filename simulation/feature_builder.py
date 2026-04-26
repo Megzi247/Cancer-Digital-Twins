@@ -33,6 +33,11 @@ def build_patient_features(patient_id: str, mrn: str) -> dict:
     horm = raw.get("hormonal") or []
     biopsy = raw.get("biopsy") or []
     resist = raw.get("resistance") or []
+    carc = raw.get("carcinogen") or []
+    act = raw.get("activity") or []
+    stress = raw.get("stress") or []
+    circ = raw.get("circadian") or []
+    soc = raw.get("socioeconomic") or []
 
     return {
         "mrn": mrn,
@@ -112,4 +117,18 @@ def build_patient_features(patient_id: str, mrn: str) -> dict:
         # Mutations & resistance
         "actionable_mutations": raw.get("actionable_mutations") or [],
         "mdr1_expression": f(resist[0] if resist else None),
+
+        # L7 — Lifestyle & environment
+        "smoking_status": s(carc[0] if carc else None),
+        "pack_years": f(carc[1] if carc else None),
+        "alcohol_units_week": f(carc[2] if carc else None),
+        "prior_chemotherapy": b(carc[3] if carc else None),
+        "met_min_week": f(act[0] if act else None),
+        "sedentary_h_day": f(act[1] if act else None),
+        "perceived_stress_pss": f(stress[0] if stress else None),
+        "morning_cortisol": f(stress[1] if stress else None),
+        "chronotype": s(circ[0] if circ else None),
+        "night_shift_worker": b(circ[1] if circ else None),
+        "financial_toxicity_score": f(soc[0] if soc else None),
+        "social_support_score": f(soc[1] if soc else None),
     }
