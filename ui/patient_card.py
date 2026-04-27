@@ -72,7 +72,7 @@ def render_patient_card(features: dict):
     dpyd_badge = ""
     if features.get("dpyd_variant"):
         dpyd_badge = (
-            '<span style="background:#7a1a1a;color:#ffaaaa;padding:2px 8px;'
+            '<span style="background:#fef2f2;color:#dc2626;border:1px solid #dc2626;padding:2px 8px;'
             'border-radius:4px;font-size:0.75em;font-weight:700;margin-left:10px">'
             '&#9888; DPYD VARIANT</span>'
         )
@@ -83,13 +83,13 @@ def render_patient_card(features: dict):
 
     # Patient profile header
     header_html = (
-        '<div style="background:linear-gradient(135deg,#0a1929 0%,#0d2137 100%);'
-        'border:1px solid #1e3a4f;border-left:4px solid #17a589;border-radius:10px;'
+        '<div style="background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 100%);'
+        'border:1px solid #e2e8f0;border-left:4px solid #17a589;border-radius:10px;'
         'padding:18px 24px;margin-bottom:16px">'
         '<div style="display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap">'
 
         # Person icon
-        '<div style="width:52px;height:52px;border-radius:50%;background:#1e3a4f;'
+        '<div style="width:52px;height:52px;border-radius:50%;background:#e2e8f0;'
         'border:2px solid #17a589;display:flex;align-items:center;justify-content:center;'
         'flex-shrink:0;font-size:1.6em">&#128100;</div>'
 
@@ -97,24 +97,24 @@ def render_patient_card(features: dict):
         '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;flex:1">'
 
         '<div>'
-        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#4a9aba;text-transform:uppercase;margin-bottom:4px">Patient ID</div>'
-        f'<div style="font-size:1.35em;font-weight:800;color:#e8f4f8;letter-spacing:0.04em">{features["mrn"]}{dpyd_badge}</div>'
-        f'<div style="font-size:0.85em;color:#7fb3c8;margin-top:2px">{age_sex}</div>'
+        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#0068c9;text-transform:uppercase;margin-bottom:4px">Patient ID</div>'
+        f'<div style="font-size:1.35em;font-weight:800;color:#1e293b;letter-spacing:0.04em">{features["mrn"]}{dpyd_badge}</div>'
+        f'<div style="font-size:0.85em;color:#64748b;margin-top:2px">{age_sex}</div>'
         '</div>'
 
         '<div style="flex:1;min-width:180px">'
-        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#4a9aba;text-transform:uppercase;margin-bottom:4px">Diagnosis</div>'
-        f'<div style="font-size:0.9em;font-weight:600;color:#cde8f5">{diagnosis}</div>'
+        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#0068c9;text-transform:uppercase;margin-bottom:4px">Diagnosis</div>'
+        f'<div style="font-size:0.9em;font-weight:600;color:#1e293b">{diagnosis}</div>'
         '</div>'
 
         '<div>'
-        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#4a9aba;text-transform:uppercase;margin-bottom:4px">Staging</div>'
-        f'<div style="font-size:0.9em;font-weight:600;color:#cde8f5">T{t} N{n} M{m} &middot; {laterality}</div>'
+        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#0068c9;text-transform:uppercase;margin-bottom:4px">Staging</div>'
+        f'<div style="font-size:0.9em;font-weight:600;color:#1e293b">T{t} N{n} M{m} &middot; {laterality}</div>'
         '</div>'
 
         '<div>'
-        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#4a9aba;text-transform:uppercase;margin-bottom:4px">Actionable Mutations</div>'
-        f'<div style="font-size:0.9em;font-weight:600;color:{"#f0b429" if actionable else "#6b8a9e"}">{actionable_str}</div>'
+        '<div style="font-size:0.68em;font-weight:700;letter-spacing:0.12em;color:#0068c9;text-transform:uppercase;margin-bottom:4px">Actionable Mutations</div>'
+        f'<div style="font-size:0.9em;font-weight:600;color:{"#b45309" if actionable else "#94a3b8"}">{actionable_str}</div>'
         '</div>'
 
         '</div></div></div>'
@@ -125,20 +125,20 @@ def render_patient_card(features: dict):
     st.markdown("""
 <style>
 [data-testid="metric-container"] {
-    background: #0d1f2d;
-    border: 1px solid #1e3a4f;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 14px 16px;
 }
 [data-testid="metric-container"] label {
-    color: #4a9aba !important;
+    color: #0068c9 !important;
     font-size: 0.72em !important;
     font-weight: 700 !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
 }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #e8f4f8 !important;
+    color: #1e293b !important;
     font-size: 1.6em !important;
     font-weight: 800 !important;
 }
@@ -205,10 +205,10 @@ def render_patient_card(features: dict):
     pr = features.get("pr_hscore", 0)
     her2 = features.get("her2_hscore", 0)
 
-    TD_LABEL = 'padding:10px 20px 10px 8px;color:#7fb3c8;font-size:0.88em;white-space:nowrap;border-bottom:1px solid #1e3a4f;vertical-align:middle'
-    TD_VALUE = 'padding:10px 8px 10px 20px;font-size:0.88em;font-weight:600;border-bottom:1px solid #1e3a4f;vertical-align:middle'
+    TD_LABEL = 'padding:10px 20px 10px 8px;color:#64748b;font-size:1.0em;white-space:nowrap;border-bottom:1px solid #e2e8f0;vertical-align:middle'
+    TD_VALUE = 'padding:10px 8px 10px 20px;font-size:1.0em;font-weight:600;border-bottom:1px solid #e2e8f0;vertical-align:middle'
 
-    def _row(label, value, colour="#cde8f5"):
+    def _row(label, value, colour="#1e293b"):
         return (
             f'<tr>'
             f'<td style="{TD_LABEL}">{label}</td>'
@@ -228,38 +228,38 @@ def render_patient_card(features: dict):
         s = str(status).lower()
         if "pathogenic" in s or "mutated" in s or "variant" in s:
             return "#e67e22"   # amber — PARP inhibitor eligible
-        return "#cde8f5"
+        return "#1e293b"
 
     def _mmr_colour(status):
-        return "#e67e22" if str(status).lower() in ("dmmr", "deficient") else "#cde8f5"
+        return "#d97706" if str(status).lower() in ("dmmr", "deficient") else "#1e293b"
 
     def _mrd_colour(status):
-        return "#c0392b" if str(status).lower() == "positive" else "#27ae60"
+        return "#dc2626" if str(status).lower() == "positive" else "#16a34a"
 
     def _egfr_colour(val):
         try:
             v = float(val)
             if v < 30:
-                return "#c0392b"
+                return "#dc2626"
             if v < 60:
-                return "#e67e22"
-            return "#27ae60"
+                return "#d97706"
+            return "#16a34a"
         except (TypeError, ValueError):
-            return "#cde8f5"
+            return "#1e293b"
 
     def _lvef_colour(val):
         try:
             v = float(val)
-            return "#c0392b" if v < 50 else "#cde8f5"
+            return "#dc2626" if v < 50 else "#1e293b"
         except (TypeError, ValueError):
-            return "#cde8f5"
+            return "#1e293b"
 
     def _qtc_colour(val):
         try:
             v = float(val)
-            return "#c0392b" if v > 470 else "#cde8f5"
+            return "#dc2626" if v > 470 else "#1e293b"
         except (TypeError, ValueError):
-            return "#cde8f5"
+            return "#1e293b"
 
     ki67_val = features.get("ki67_index") or 0.0
     ki67_label = f"{ki67_val:.1f}%" if ki67_val else "—"
@@ -276,10 +276,10 @@ def render_patient_card(features: dict):
         _row("MMR status", features.get("mmr_status", "—"), _mmr_colour(features.get("mmr_status", ""))),
         _row("HRD score", features.get("hrd_score", "—")),
         _row("POLE mutation", "Yes &#9888;" if features.get("pole_mutation") else "No",
-             "#e67e22" if features.get("pole_mutation") else "#cde8f5"),
+             "#d97706" if features.get("pole_mutation") else "#1e293b"),
         _row("Actionable mutations",
              ", ".join(actionable) if actionable else "None",
-             "#f0b429" if actionable else "#6b8a9e"),
+             "#b45309" if actionable else "#94a3b8"),
     ])
 
     phys_rows = "".join([
@@ -290,7 +290,7 @@ def render_patient_card(features: dict):
         _row("CYP2D6", features.get("cyp2d6", "—")),
         _row("DPYD variant",
              "Yes &#9888;" if features.get("dpyd_variant") else "No",
-             "#c0392b" if features.get("dpyd_variant") else "#cde8f5"),
+             "#dc2626" if features.get("dpyd_variant") else "#1e293b"),
         _row("TPMT activity", features.get("tpmt_activity", "—")),
         _row("BMI", features.get("bmi", "—")),
         _row("Skeletal muscle index", features.get("smi", "—")),
@@ -299,21 +299,21 @@ def render_patient_card(features: dict):
     ])
 
     section_label = (
-        'font-size:0.72em;font-weight:700;letter-spacing:0.12em;'
-        'color:#4a9aba;text-transform:uppercase;margin-bottom:12px;display:block'
+        'font-size:0.88em;font-weight:700;letter-spacing:0.12em;'
+        'color:#0068c9;text-transform:uppercase;margin-bottom:12px;display:block'
     )
 
     characteristics_html = (
-        '<div style="background:#0a1929;border:1px solid #1e3a4f;border-radius:10px;'
+        '<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;'
         'margin-top:8px;overflow:hidden">'
 
-        '<div style="background:#0d2137;padding:12px 24px;border-bottom:1px solid #1e3a4f">'
+        '<div style="background:#f1f5f9;padding:12px 24px;border-bottom:1px solid #e2e8f0">'
         f'<span style="{section_label}">Patient Characteristics</span>'
         '</div>'
 
         '<div style="display:flex">'
 
-        '<div style="flex:1;padding:24px 36px;border-right:1px solid #1e3a4f">'
+        '<div style="flex:1;padding:24px 36px;border-right:1px solid #e2e8f0">'
         f'<span style="{section_label}">Molecular Profile</span>'
         f'<table style="width:100%;border-collapse:collapse">{mol_rows}</table>'
         '</div>'

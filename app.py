@@ -42,7 +42,7 @@ def _render_background():
             content: "";
             position: fixed;
             inset: 0;
-            background: rgba(5, 15, 30, 0.78);
+            background: rgba(255, 255, 255, 0.82);
             z-index: 0;
             pointer-events: none;
         }}
