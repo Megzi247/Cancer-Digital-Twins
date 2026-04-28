@@ -1,12 +1,12 @@
 import streamlit as st
 
-DARK_BG = "#f8fafc"
-CARD_BG = "#ffffff"
-HEADER_BG = "#f1f5f9"
-BORDER = "#e2e8f0"
-LABEL_COL = "#0068c9"
-TEXT_COL = "#1e293b"
-DIM_COL = "#64748b"
+DARK_BG = "#0a1929"
+CARD_BG = "#0d1f2d"
+HEADER_BG = "#0d2137"
+BORDER = "#1e3a4f"
+LABEL_COL = "#4a9aba"
+TEXT_COL = "#cde8f5"
+DIM_COL = "#7fb3c8"
 
 SECTION_LABEL = (
     "font-size:0.72em;font-weight:700;letter-spacing:0.12em;"
@@ -14,22 +14,22 @@ SECTION_LABEL = (
 )
 
 LEVEL_COLOURS = {
-    "low":        ("#16a34a", "#f0fdf4"),
-    "moderate":   ("#d97706", "#fffbeb"),
-    "medium":     ("#d97706", "#fffbeb"),
-    "high":       ("#dc2626", "#fef2f2"),
-    "good":       ("#16a34a", "#f0fdf4"),
-    "acceptable": ("#d97706", "#fffbeb"),
-    "poor":       ("#dc2626", "#fef2f2"),
-    "cr":         ("#16a34a", "#f0fdf4"),
-    "pr":         ("#16a34a", "#f0fdf4"),
-    "sd":         ("#d97706", "#fffbeb"),
-    "pd":         ("#dc2626", "#fef2f2"),
+    "low":        ("#27ae60", "#0d2a1a"),
+    "moderate":   ("#e67e22", "#2a1e0d"),
+    "medium":     ("#e67e22", "#2a1e0d"),
+    "high":       ("#c0392b", "#2a0d0d"),
+    "good":       ("#27ae60", "#0d2a1a"),
+    "acceptable": ("#e67e22", "#2a1e0d"),
+    "poor":       ("#c0392b", "#2a0d0d"),
+    "cr":         ("#27ae60", "#0d2a1a"),
+    "pr":         ("#27ae60", "#0d2a1a"),
+    "sd":         ("#e67e22", "#2a1e0d"),
+    "pd":         ("#c0392b", "#2a0d0d"),
 }
 
 
 def _level_colour(level: str):
-    return LEVEL_COLOURS.get(str(level).lower(), ("#64748b", "#f8fafc"))
+    return LEVEL_COLOURS.get(str(level).lower(), ("#7fb3c8", "#0d1f2d"))
 
 
 def _pill(label: str, level: str) -> str:
@@ -66,11 +66,11 @@ def _card_html(header: str, body_html: str, accent: str = "#17a589") -> str:
 
 def render_ddi_error(message: str):
     st.markdown(
-        f'<div style="background:#fef2f2;border:1px solid #dc2626;border-left:5px solid #dc2626;'
+        f'<div style="background:#2a0d0d;border:1px solid #c0392b;border-left:5px solid #c0392b;'
         f'border-radius:8px;padding:18px 24px;margin-bottom:12px">'
-        f'<div style="font-size:0.72em;font-weight:700;letter-spacing:0.12em;color:#dc2626;'
+        f'<div style="font-size:0.72em;font-weight:700;letter-spacing:0.12em;color:#c0392b;'
         f'text-transform:uppercase;margin-bottom:6px">&#9888; Drug Interaction — Simulation Blocked</div>'
-        f'<div style="color:#991b1b;font-size:0.95em">{message}</div>'
+        f'<div style="color:#ffaaaa;font-size:0.95em">{message}</div>'
         f'</div>',
         unsafe_allow_html=True,
     )
@@ -128,16 +128,16 @@ def render_results(result: dict, model_label: str):
         return d.get("biomarker", "—") if isinstance(d, dict) else d
 
     driver_items = "".join(
-        f'<div style="background:#fefce8;border-left:3px solid #d97706;padding:6px 12px;'
+        f'<div style="background:#0a1929;border-left:3px solid #f0b429;padding:6px 12px;'
         f'border-radius:4px;margin:4px 0;font-size:0.94em">'
-        f'<span style="color:#b45309;font-weight:700">{_driver_name(d)}</span>'
+        f'<span style="color:#f0b429;font-weight:700">{_driver_name(d)}</span>'
         f'{_driver_detail(d)}'
         f'</div>'
         for d in drivers
     )
     reasoning = efficacy.get("reasoning", "")
     reasoning_html = (
-        f'<div style="background:#f8fafc;border-left:3px solid {BORDER};padding:10px 14px;'
+        f'<div style="background:#0a1929;border-left:3px solid {BORDER};padding:10px 14px;'
         f'border-radius:4px;font-size:1.0em;color:{DIM_COL};line-height:1.55">{reasoning}</div>'
     ) if reasoning else ""
 
@@ -148,7 +148,7 @@ def render_results(result: dict, model_label: str):
         f'<div style="min-width:200px;padding-right:28px;border-right:1px solid {BORDER}">'
         f'<div style="font-size:0.75em;color:{DIM_COL};margin-bottom:2px">RESPONSE PROBABILITY</div>'
         f'<div style="font-size:2.6em;font-weight:800;color:{prob_fg};line-height:1">{prob:.0%}</div>'
-        f'<div style="background:#e2e8f0;border-radius:4px;height:6px;margin:8px 0 14px">'
+        f'<div style="background:#1e3a4f;border-radius:4px;height:6px;margin:8px 0 14px">'
         f'<div style="background:{prob_fg};width:{bar_filled}%;height:6px;border-radius:4px"></div></div>'
         f'<table style="border-collapse:collapse">'
         f'{_row("RECIST", _pill(recist, recist))}'
@@ -192,8 +192,8 @@ def render_results(result: dict, model_label: str):
 
     risk_items = "".join(_risk_item(r) for r in top_risks)
     adj_html = (
-        f'<div style="background:#fffbeb;border:1px solid #d97706;border-radius:6px;'
-        f'padding:8px 14px;margin-top:10px;font-size:0.93em;color:#92400e">'
+        f'<div style="background:#2a1e0d;border:1px solid #e67e22;border-radius:6px;'
+        f'padding:8px 14px;margin-top:10px;font-size:0.93em;color:#f0b429">'
         f'&#9888; <strong>Dose adjustment:</strong> {adj}</div>'
     ) if adj else ""
 
@@ -229,7 +229,7 @@ def render_results(result: dict, model_label: str):
     tier_fg, _ = _level_colour(tier)
 
     salvage_items = "".join(
-        f'<div style="background:#eff6ff;border-left:3px solid {LABEL_COL};'
+        f'<div style="background:#0a1929;border-left:3px solid {LABEL_COL};'
         f'padding:6px 12px;border-radius:4px;margin:4px 0;'
         f'font-size:0.93em;font-weight:600;color:{TEXT_COL}">&#128138; {s}</div>'
         for s in salvage
